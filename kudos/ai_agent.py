@@ -114,6 +114,7 @@ RECENT POSTS:
             }
         }
 
+        print(prompt)
         # 4) Ask the LLM for the action details (post_id, message)
         response = ask_question(
             question=prompt,
