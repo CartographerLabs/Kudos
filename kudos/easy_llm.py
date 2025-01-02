@@ -77,7 +77,6 @@ class EasyLLM:
             prompt,
             max_number_tokens=max_new_tokens,
             max_string_token_length=max_new_tokens,
-            do_sample=True,
             temperature=temperature
         )
         generated_json = jsonformer()
