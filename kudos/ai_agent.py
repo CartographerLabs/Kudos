@@ -81,7 +81,7 @@ YOUR ASSIGNED ACTION: {chosen_action_type.upper()}
 TECHNICAL DETAILS:
 • Output one JSON object: "action_type", "post_id", and "message".
 • For a "like", "message" must be null.
-• Mention other users with "@username" if relevant.
+• Mention other users with "@username" if relevant. You must use the '@' symbol before the username.
 • Maintain a human-like tone; never mention AI or the game context.
 • Keep your style consistent, and do not replicate or paraphrase full previous posts.
 • Write in natural UK/US English.
