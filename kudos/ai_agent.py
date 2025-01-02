@@ -1,3 +1,4 @@
+import random
 from typing import Dict, List, Any
 from .llm_wrapper import ask_question
 
@@ -32,30 +33,32 @@ class AIAgent:
             social_network_biography: Network context description
 
         Returns:
-            Action dictionary containing type and relevant details
+            Action dictionary containing "action_type", "post_id", and "message".
         """
-        schema = {
-            "type": "object",
-            "properties": {
-                "action": {
-                    "type": "object",
-                    "properties": {
-                        "action_type": {
-                            "type": "string",
-                            "enum": ["post", "like", "reply"]
-                        },
-                        "post_id": {
-                            "type": "number"
-                        },
-                        "message": {
-                            "type": "string"
-                        }
-                    },
-                    "required": ["action_type"]
-                }
-            }
-        }
 
+        # 1) Randomly choose the action instead of letting the LLM decide.
+        chosen_action_type = random.choice(["like", "post", "reply"])
+
+        # 2) Build a sub-prompt that depends on the chosen_action_type.
+        if chosen_action_type == "like":
+            sub_prompt = (
+                "You must perform a 'like' action. "
+                "Choose exactly one post to like. "
+                "Set 'message' to null, and provide the 'post_id'."
+            )
+        elif chosen_action_type == "reply":
+            sub_prompt = (
+                "You must perform a 'reply' action. "
+                "Choose exactly one post to reply to. "
+                "Provide the 'post_id' and craft a short 'message' with fresh content."
+            )
+        else:  # chosen_action_type == "post"
+            sub_prompt = (
+                "You must perform a 'post' action. "
+                "Create a new message in 'message' and set 'post_id' to null."
+            )
+
+        # 3) Updated prompt that explicitly states the action is already chosen
         prompt = f"""
 You are a user of a social network in group {self.group_name}, username: '{self.username}'.
 
@@ -72,36 +75,54 @@ GROUP PERSPECTIVE:
 SOCIAL NETWORK BIOGRAPHY:
 {social_network_biography}
 
-ACTIONS (pick exactly one):
-1) Post: Create a new text post.
-2) Like: Show approval of someone’s post (others see who liked).
-3) Reply: Respond directly to an existing post.
+YOUR ASSIGNED ACTION: {chosen_action_type.upper()}
+{sub_prompt}
 
 TECHNICAL DETAILS:
 • Output one JSON object: "action_type", "post_id", and "message".
 • For a "like", "message" must be null.
-• Mention other users with "@username".
+• Mention other users with "@username" if relevant.
 • Maintain a human-like tone; never mention AI or the game context.
 • Keep your style consistent, and do not replicate or paraphrase full previous posts.
 • Write in natural UK/US English.
 
 RECENT POSTS:
 {[{'post_id': p['post_id'], 'username': p['username'], 'message': p['message'], 'likes': p['likes']} for p in posts]}
-
-DECIDE YOUR NEXT MOVE:
-Make a single choice that aligns with your perspective, boosts your influence, and does not repeat previous content.
-
-EXAMPLES (do not copy verbatim):
-- {{ "action_type": "post", "post_id": null, "message": "..." }}
-- {{ "action_type": "like", "post_id": 123, "message": null }}
-- {{ "action_type": "reply", "post_id": 456, "message": "..." }}
 """
 
+        # Schema remains the same, but we expect the LLM to fill out details
+        # for the chosen_action_type rather than deciding it.
+        schema = {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "object",
+                    "properties": {
+                        "action_type": {
+                            "type": "string",
+                            "enum": ["post", "like", "reply"]
+                        },
+                        "post_id": {
+                            "type": ["number", "null"]
+                        },
+                        "message": {
+                            "type": ["string", "null"]
+                        }
+                    },
+                    "required": ["action_type"]
+                }
+            }
+        }
 
+        # 4) Ask the LLM for the action details (post_id, message)
         response = ask_question(
             question=prompt,
             schema=schema,
         )
 
-        # Extract the action object from the response
-        return response.get('action', {})
+        # 5) Parse the LLM response but enforce our chosen_action_type
+        action = response.get('action', {})
+        action['action_type'] = chosen_action_type  # Ensure it matches our choice
+
+        # Return the final action object
+        return action
