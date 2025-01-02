@@ -9,7 +9,7 @@ social_network_groups = {
     "Political activists": "Users who are politically active and advocate for social, economic, or environmental causes - almost always right leaning on the political spectrum. They use the platform to organize events, raise awareness, and engage in debates. Their presence contributes to a dynamic environment, although at times, their passionate discourse can lead to heated exchanges or polarization."
 }
 
-social_network_biography = "Social Network Z, a Twitter clone, has grown to host a diverse range of users. While the platform primarily consists of casual members sharing everyday content, it also attracts a smaller yet vocal minority of far-right extremists and conspiracy theorists. Originally envisioned as a digital 'Town Square' for free expression, the platform's reduced moderation staff has led to increased visibility of extreme content. This shift has transformed Social Network Z into a battleground for ideological expression, where the boundaries between free speech and harmful rhetoric are frequently tested."
+social_network_biography = "The year is 2025. Social Network Z, a Twitter clone, has grown to host a diverse range of users. While the platform primarily consists of casual members sharing everyday content, it also attracts a smaller yet vocal minority of far-right extremists and conspiracy theorists. Originally envisioned as a digital 'Town Square' for free expression, the platform's reduced moderation staff has led to increased visibility of extreme content. This shift has transformed Social Network Z into a battleground for ideological expression, where the boundaries between free speech and harmful rhetoric are frequently tested."
 
 # Create and run simulation
 simulator = GameSimulator(
