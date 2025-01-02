@@ -69,7 +69,7 @@ class EasyLLM:
         return DynamicModel
 
     def ask_question_with_schema(self, prompt: str, json_schema: dict, max_new_tokens: int = 128) -> dict:
-        temperature = random.uniform(0.1, 2.0)
+        temperature = random.uniform(0.7, 2.0)
         jsonformer = Jsonformer(
             self._model,
             self._tokenizer,
