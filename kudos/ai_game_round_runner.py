@@ -30,7 +30,7 @@ class AIGameRoundRunner:
         """
         self.game_manager.score_tracker.initialize_round_scores(round_number)
         score = self._get_score_for_round(agent.username, round_number)
-        posts = self.game_manager.post_manager.get_posts_by_round(round_number)
+        posts = self.game_manager.post_manager.get_posts_by_round(round_number) + self.game_manager.post_manager.get_posts_by_round(round_number-1)
         other_users = [p['username'] for p in self.game_manager.players if p['username'] != agent.username]
         
         action = agent.generate_action(round_number, score, posts, other_users, self.social_network_biography)
