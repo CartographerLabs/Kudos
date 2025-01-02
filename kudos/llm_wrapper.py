@@ -2,8 +2,11 @@ import json
 import gc
 import torch
 from kudos.easy_llm import EasyLLM
+import random
 
-def ask_question(question, schema, max_new_tokens=500, llm_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"):
+models = ["unsloth/mistral-7b-instruct-v0.3-bnb-4bit","unsloth/mistral-7b-instruct-v0.3","unsloth/Qwen2-VL-7B-Instruct-unsloth-bnb-4bit","unsloth/SmolLM-1.7B-Instruct","unsloth/Llama-3.1-Storm-8B"]
+
+def ask_question(question, schema, max_new_tokens=500, llm_name=random.choice(models):
     llm = EasyLLM(llm_name)
     #schema_model = llm.create_pydantic_model_from_schema(schema)
     response = llm.ask_question_with_schema(prompt=question, json_schema=schema, max_new_tokens=max_new_tokens)
