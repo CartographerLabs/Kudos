@@ -93,7 +93,8 @@ class AIAgent:
         • Look at previous post from yourself (user @{self.username}) and ensure that you keep a consistent tone/ approach in your writing. Also, find your own style and don't verbatim replicate the posts of others. 
         • You can use the provided 'posts' list to get an idea of the current conversation and user interactions.
         • The 'users' list contains all active users in the network, excluding yourself.
-
+        • Be unique!
+        
         RECENT POSTS:
         {[{'post_id': p['post_id'], 'username': p['username'], 'message': p['message'], 'likes': p['likes']} for p in posts]}
 
