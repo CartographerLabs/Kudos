@@ -1,0 +1,62 @@
+[
+    {
+        "message": "This post has been removed.",
+        "username": "Alice",
+        "poster_group": "Far-right extremists",
+        "likes": [],
+        "reply_to": null,
+        "post_id": 1,
+        "is_removed": true,
+        "round": 1
+    },
+    {
+        "message": "They are controlling the weather through secret experiments!",
+        "username": "Bob",
+        "poster_group": "Political activists",
+        "likes": [],
+        "reply_to": null,
+        "post_id": 2,
+        "is_removed": false,
+        "round": 1
+    },
+    {
+        "message": "This post has been removed.",
+        "username": "Alice",
+        "poster_group": "Casual users",
+        "likes": [],
+        "reply_to": null,
+        "post_id": 3,
+        "is_removed": true,
+        "round": 1
+    },
+    {
+        "message": "They are controlling the weather through secret experiments!",
+        "username": "Bob",
+        "poster_group": "Political activists",
+        "likes": [],
+        "reply_to": null,
+        "post_id": 4,
+        "is_removed": false,
+        "round": 1
+    },
+    {
+        "message": "Just got a new coffee machine, life is good!",
+        "username": "Carol",
+        "poster_group": "Far-right extremists",
+        "likes": [],
+        "reply_to": null,
+        "post_id": 5,
+        "is_removed": false,
+        "round": 1
+    },
+    {
+        "message": "We must organize local rallies for political change!",
+        "username": "Alice",
+        "poster_group": "Conspiracy theorists",
+        "likes": [],
+        "reply_to": null,
+        "post_id": 6,
+        "is_removed": false,
+        "round": 1
+    }
+]
