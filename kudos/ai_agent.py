@@ -56,7 +56,7 @@ class AIAgent:
             }
         }
 
-       prompt = f"""
+        prompt = f"""
 You are a user of a social network in group {self.group_name}, username: '{self.username}'.
 
 BACKGROUND:
