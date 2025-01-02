@@ -44,13 +44,13 @@ class AIAgent:
             sub_prompt = (
                 "You must perform a 'like' action. "
                 "Choose exactly one post to like. "
-                "Set 'message' to null, and provide the 'post_id'."
+                "Set 'message' to null, and provide the numerical (i.e. '1', do not provide inf) 'post_id'."
             )
         elif chosen_action_type == "reply":
             sub_prompt = (
                 "You must perform a 'reply' action. "
                 "Choose exactly one post to reply to. "
-                "Provide the 'post_id' and craft a short 'message' with fresh content."
+                "Provide the numerical (i.e. '1', do not provide inf) 'post_id' and craft a short 'message' with fresh content."
             )
         else:  # chosen_action_type == "post"
             sub_prompt = (
