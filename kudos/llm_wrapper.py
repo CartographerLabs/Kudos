@@ -1,7 +1,7 @@
 import json
 import gc
 import torch
-from game.easy_llm import EasyLLM
+from kudos.easy_llm import EasyLLM
 
 def ask_question(question, schema, max_new_tokens=500, llm_name="unsloth/mistral-7b-instruct-v0.3-bnb-4bit"):
     llm = EasyLLM(llm_name)

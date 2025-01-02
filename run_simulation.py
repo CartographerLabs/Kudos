@@ -1,5 +1,5 @@
-from game.game_simulator import GameSimulator
-from game.game_rules import game_rules
+from kudos.game_simulator import GameSimulator
+from kudos.game_rules import game_rules
 
 # Use the same network setup as test_game.py
 social_network_groups = {
