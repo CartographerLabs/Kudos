@@ -1,6 +1,7 @@
 import json
 import re
 import torch
+import random  # <-- import random
 from typing import Optional, Dict, Any, Type, Union
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from jsonformer.main import Jsonformer
@@ -38,6 +39,9 @@ class EasyLLM:
         print("Model loaded successfully.")
 
     def ask_question(self, prompt: str, max_new_tokens: int = 300) -> str:
+        # Generate a random temperature between 0.7 and 1.3 (you can adjust this range)
+        temperature = random.uniform(0.7, 1.3)
+        
         inputs = self._tokenizer(prompt, return_tensors="pt")
         input_ids = inputs["input_ids"].to(self._device)
 
@@ -46,6 +50,7 @@ class EasyLLM:
                 input_ids=input_ids,
                 max_new_tokens=max_new_tokens,
                 do_sample=True,
+                temperature=temperature,
                 pad_token_id=self._tokenizer.pad_token_id
             )
 
@@ -65,7 +70,14 @@ class EasyLLM:
         return DynamicModel
 
     def ask_question_with_schema(self, prompt: str, json_schema: dict, max_new_tokens: int = 128) -> dict:
-        jsonformer = Jsonformer(self._model, self._tokenizer, json_schema, prompt, max_number_tokens=max_new_tokens, max_string_token_length=max_new_tokens)
+        jsonformer = Jsonformer(
+            self._model,
+            self._tokenizer,
+            json_schema,
+            prompt,
+            max_number_tokens=max_new_tokens,
+            max_string_token_length=max_new_tokens
+        )
         generated_json = jsonformer()
         return generated_json
 
