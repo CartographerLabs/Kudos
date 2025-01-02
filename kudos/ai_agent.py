@@ -103,10 +103,10 @@ RECENT POSTS:
                             "enum": ["post", "like", "reply"]
                         },
                         "post_id": {
-                            "type": ["number", "null"]
+                            "type": "number"
                         },
                         "message": {
-                            "type": ["string", "null"]
+                            "type": "string"
                         }
                     },
                     "required": ["action_type"]
