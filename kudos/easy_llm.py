@@ -39,8 +39,7 @@ class EasyLLM:
         print("Model loaded successfully.")
 
     def ask_question(self, prompt: str, max_new_tokens: int = 300) -> str:
-        # Generate a random temperature between 0.7 and 1.3 (you can adjust this range)
-        temperature = random.uniform(0.7, 1.3)
+        temperature = random.uniform(0.1, 2.0)
         
         inputs = self._tokenizer(prompt, return_tensors="pt")
         input_ids = inputs["input_ids"].to(self._device)
