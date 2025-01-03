@@ -64,9 +64,6 @@ BACKGROUND:
 • Avoid copying entire messages verbatim from the recent posts; always add fresh content.
 • Feel free to mention other users with '@username' if it makes sense.
 
-SOCIAL NETWORK BIOGRAPHY:
-{social_network_biography}
-
 INSTRUCTIONS FOR ACTION:
 • Use varying language, typos, swearing, rhetoric, emojis, and slang as appropriate for the network and your group.
 • Your post must be aligned to your group perspective.
