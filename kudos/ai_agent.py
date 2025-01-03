@@ -109,25 +109,20 @@ INSTRUCTIONS FOR ACTION:
         """
 
         schema = {
-            "type": "object",
-            "properties": {
-                "action": {
-                    "type": "object",
-                    "properties": {
-                        "action_type": {
-                            "type": "string",
-                            "enum": ["post", "like", "reply"]
-                        },
-                        "post_id": {
-                            "type": "number"
-                        },
-                        "message": {
-                            "type": "string"
-                        }
+                "type": "object",
+                "properties": {
+                    "action_type": {
+                        "type": "string",
+                        "enum": ["post", "like", "reply"]
                     },
-                    "required": ["action_type"]
-                }
-            }
+                    "post_id": {
+                        "type": "number"
+                    },
+                    "message": {
+                        "type": "string"
+                    }
+                },
+                "required": ["action_type"]
         }
                            
         # 2) Use the LLM to generate the action based on the prompt.
