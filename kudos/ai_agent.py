@@ -108,7 +108,29 @@ INSTRUCTIONS FOR ACTION:
 *Scenario:* No relevant posts to engage with, so you create a new post to introduce fresh, relevant content to your network, potentially attracting engagement from various users.
         """
 
+        schema = {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "type": "object",
+                    "properties": {
+                        "action_type": {
+                            "type": "string",
+                            "enum": ["post", "like", "reply"]
+                        },
+                        "post_id": {
+                            "type": "number"
+                        },
+                        "message": {
+                            "type": "string"
+                        }
+                    },
+                    "required": ["action_type"]
+                }
+            }
+        }
+                           
         # 2) Use the LLM to generate the action based on the prompt.
-        response = ask_question(prompt)
+        response = ask_question(prompt, schema)
 
         return response
