@@ -10,7 +10,7 @@ with open("requirements.txt", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="kudos",
-    version="0.3.15",
+    version="0.3.16",
     packages=setuptools.find_packages(),
     install_requires=requirements,
     entry_points={
