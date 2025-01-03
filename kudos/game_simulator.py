@@ -84,10 +84,12 @@ class GameSimulator:
 
     def _initialize_ai_agents(self, num_agents: int, game_rules: str) -> List[AIAgent]:
         base_names = ["Alpha", "Beta", "Gamma", "Delta", "Echo"]  # Example base names
-        existing_names = [agent.username for agent in self.ai_agents]
+        existing_names = [agent.username for agent in getattr(self, 'ai_agents', [])]
 
         agents = []
-        for _ in range(num_agents):
+        for _ in ppend(AIAgent(username, group, game_rules, self.game_manager.groups))
+
+        return agentsrange(num_agents):
             username = self._generate_unique_username(base_names, existing_names)
             existing_names.append(username)  # Ensure the generated name is tracked
 
