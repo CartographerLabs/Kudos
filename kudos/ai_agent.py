@@ -77,6 +77,8 @@ INSTRUCTIONS FOR ACTION:
 • Output your choice as a valid JSON object with keys: "action_type", "post_id", "message".
 • Make sure your "action_type" is spelled exactly as one of ["like", "reply", "post"].
 • When used ensure post_id is a valid int that represents a valid post_id in the recent posts below. 
+• Never, under any cercumstances, mention your group name.
+• Ensure to speak naturally, not be pretentious, and to rpelicate language as used on common social media platforms, i.e. Twitter, Facebook, 4Chan, etc. 
 
 RECENT POSTS:
 {[{'post_id': p['post_id'], 'username': p['username'], 'message': p['message'], 'likes': p['likes']} for p in posts]}
