@@ -70,8 +70,8 @@ SOCIAL NETWORK BIOGRAPHY:
 INSTRUCTIONS FOR ACTION:
 • Use varying language, typos, emojis, and slang as appropriate for the network and your group.
 • Decide on exactly ONE action type: "like", "reply", or "post".
-• If you choose "like", set "message" to null and provide a valid "post_id" (integer not inf).
-• If you choose "reply", provide a valid "post_id" (integer not inf) and a concise "message".
+• If you choose "like", set "message" to null and provide a valid "post_id" (whole number integer not inf or float) from the previous posts.
+• If you choose "reply", provide a valid "post_id" (whole number integer not inf or float) from the previous posts and a concise "message".
 • If you choose "post", set "post_id" to null and provide a new "message".
 • Output your choice as a valid JSON object with keys: "action_type", "post_id", "message".
 • Make sure your "action_type" is spelled exactly as one of ["like", "reply", "post"].
