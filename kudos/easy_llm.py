@@ -1,11 +1,10 @@
 import json
 import re
 import torch
-import random  # <-- import random
+import random
 from typing import Optional, Dict, Any, Type, Union
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from jsonformer.main import Jsonformer
-
 from pydantic import BaseModel, create_model, Field
 
 class EasyLLM:
@@ -70,6 +69,10 @@ class EasyLLM:
 
     def ask_question_with_schema(self, prompt: str, json_schema: dict, max_new_tokens: int = 128) -> dict:
         temperature = random.uniform(1.0, 1.3)
+        
+        # Set do_sample to True in the model's configuration
+        self._model.config.do_sample = True
+        
         jsonformer = Jsonformer(
             self._model,
             self._tokenizer,
