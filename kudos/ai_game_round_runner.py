@@ -61,7 +61,7 @@ class AIGameRoundRunner:
             )
         elif action["action_type"] == "like" and action["post_id"] is not None:
             self.posting_interface.like_post(
-                action["post_id"],
+                int(action["post_id"]),
                 username,
                 self.game_manager.get_player_group(username)
             )
@@ -71,7 +71,7 @@ class AIGameRoundRunner:
                 username,
                 round_number,
                 self.game_manager.get_player_group(username),
-                reply_to=action["post_id"]
+                reply_to=int(action["post_id"])
             )
         else:
             raise Exception(f"Invalid action from {username}: {action}")
