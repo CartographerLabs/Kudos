@@ -85,7 +85,17 @@ class GameSimulator:
         raise ValueError("Could not generate a unique username after 100 attempts.")
 
     def _initialize_ai_agents(self, num_agents: int, game_rules: str) -> List[AIAgent]:
-        base_names = ["Alpha", "Beta", "Gamma", "Delta", "Echo"]  # Example base names
+        base_names = [
+            "Alpha", "Beta", "Gamma", "Delta", "Echo", "Zeta", "Eta", "Theta", "Iota", "Kappa",
+            "Lambda", "Mu", "Nu", "Xi", "Omicron", "Pi", "Rho", "Sigma", "Tau", "Upsilon",
+            "Phi", "Chi", "Psi", "Omega", "Nova", "Astra", "Vega", "Lyra", "Orion", "Phoenix",
+            "Cygnus", "Draco", "Hydra", "Pegasus", "Sirius", "Altair", "Rigel", "Castor", "Pollux", "Arcturus",
+            "Procyon", "Capella", "Aquila", "Cepheus", "Andromeda", "Hercules", "Perseus", "Cassiopeia", "Gemini", "Sagittarius",
+            "Leo", "Virgo", "Scorpio", "Libra", "Aquarius", "Pisces", "Aries", "Taurus", "Cancer", "Capricorn",
+            "Centaurus", "Bootes", "Lupus", "Crater", "Fornax", "Lynx", "Pavo", "Orionis", "Serpens", "Phoenixus",
+            "Carina", "Columba", "Delphinus", "Equuleus", "Grus", "Herculi", "Indus", "Lacerta", "Monoceros", "Norma"
+        ]
+        
         existing_names = [agent.username for agent in getattr(self, 'ai_agents', [])]
 
         agents = []
