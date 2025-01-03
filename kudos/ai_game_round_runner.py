@@ -97,4 +97,4 @@ class AIGameRoundRunner:
                     self.game_manager.get_player_group(username)
                 )
         else:
-            raise Exception(f"Invalid action from {username}: {action}")
+            pass #Invalid action type. Well done LLM...
