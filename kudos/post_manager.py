@@ -126,3 +126,13 @@ class PostManager:
                     return post
             return None
 
+    def get_all_posts(self) -> List[Dict[str, Any]]:
+        """
+        Get all posts.
+
+        Returns:
+            list: A list of all posts.
+        """
+        lock = FileLock(f"{self.file_path}.lock")
+        with lock:
+            return self._read_posts_from_json()
