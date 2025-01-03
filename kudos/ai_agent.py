@@ -128,6 +128,8 @@ RECENT POSTS:
                 },
                 "required": ["action_type"]
         }
+
+        print(prompt)
                            
         # 2) Use the LLM to generate the action based on the prompt.
         response = ask_question(prompt, schema)
