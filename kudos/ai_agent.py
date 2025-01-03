@@ -64,6 +64,7 @@ BACKGROUND:
 • Avoid copying entire messages verbatim from the recent posts; always add fresh content.
 • Feel free to mention other users with '@username' if it makes sense.
 • Post a mix of new content and engagement with existing content. 
+• Depending on your persona you may not want to engage in some content and may want to present yourself with a specific persona or outlook.
 
 INSTRUCTIONS FOR ACTION:
 • Use varying language, typos, swearing, rhetoric, emojis, and slang as appropriate for the network and your group.
