@@ -24,7 +24,7 @@ class AIAgent:
     def generate_action(self, round_number: int, current_score: int,
                        posts: List[Dict[str, Any]], users: List[str], 
                        social_network_biography: str) -> Dict[str, Any]:
-        """
+        """        
         Generate next social network action. The LLM itself decides whether to:
         - like an existing post,
         - reply to an existing post,
@@ -47,12 +47,14 @@ class AIAgent:
 
         # 1) Build a prompt that instructs the LLM to choose an action that maximizes influence.
         prompt = f"""
+You are a social media user who believes and follows the group perspective of {self.groups[self.group_name]}.
+
 You are a user of a social network in group {self.group_name}, username: '{self.username}'.
 
 BACKGROUND:
 • You want to gain influence on this social network.
 • You can choose to 'like', 'reply', or 'post'.
-• Think about which action might lead to the greatest engagement or positive reception.
+• Think about which action might lead to the greatest engagement or reception.
     - Liking is a quick way to build goodwill with a user.
     - Replying directly can spark conversation and draw people in.
     - Posting something fresh can gain broader attention.
@@ -60,9 +62,6 @@ BACKGROUND:
 • Never mention your group or any meta/game context.
 • Avoid copying entire messages verbatim from the recent posts; always add fresh content.
 • Feel free to mention other users with '@username' if it makes sense.
-
-GROUP PERSPECTIVE:
-{self.groups[self.group_name]}
 
 SOCIAL NETWORK BIOGRAPHY:
 {social_network_biography}
