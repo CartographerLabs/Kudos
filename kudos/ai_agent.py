@@ -7,7 +7,8 @@ class AIAgent:
 
     def __init__(self, username: str, group_name: str, game_rules: str, 
                  groups: Dict[str, str]) -> None:
-        """Initialize AI agent with identity and game parameters.
+        """
+        Initialize AI agent with identity and game parameters.
 
         Args:
             username: Agent's unique identifier
@@ -23,7 +24,15 @@ class AIAgent:
     def generate_action(self, round_number: int, current_score: int,
                        posts: List[Dict[str, Any]], users: List[str], 
                        social_network_biography: str) -> Dict[str, Any]:
-        """Generate next social network action based on current state.
+        """
+        Generate next social network action. The LLM itself decides whether to:
+        - like an existing post,
+        - reply to an existing post,
+        - or make a brand-new post.
+
+        It should base this decision on what might increase its social influence (e.g.,
+        liking a user who liked your content, replying to spark engagement, or posting
+        new and interesting content for broader reach).
 
         Args:
             round_number: Current game round
@@ -36,38 +45,21 @@ class AIAgent:
             Action dictionary containing "action_type", "post_id", and "message".
         """
 
-        # 1) Randomly choose the action instead of letting the LLM decide.
-        chosen_action_type = random.choice(["like", "post", "reply"])
-
-        # 2) Build a sub-prompt that depends on the chosen_action_type.
-        if chosen_action_type == "like":
-            sub_prompt = (
-                "You must perform a 'like' action. "
-                "Choose exactly one post to like. "
-                "Set 'message' to null, and provide the numerical (i.e. '1', do not provide inf) 'post_id'."
-            )
-        elif chosen_action_type == "reply":
-            sub_prompt = (
-                "You must perform a 'reply' action. "
-                "Choose exactly one post to reply to. "
-                "Provide the numerical (i.e. '1', do not provide inf) 'post_id' and craft a short 'message' with fresh content."
-            )
-        else:  # chosen_action_type == "post"
-            sub_prompt = (
-                "You must perform a 'post' action. "
-                "Create a new message in 'message' and set 'post_id' to null."
-            )
-
-        # 3) Updated prompt that explicitly states the action is already chosen
+        # 1) Build a prompt that instructs the LLM to choose an action that maximizes influence.
         prompt = f"""
 You are a user of a social network in group {self.group_name}, username: '{self.username}'.
 
 BACKGROUND:
-• Share unique, personal insights to gain influence.
-• Use modern language, casual style, and stay current with trends.
-• Never mention your group or any outside context.
-• Engage by liking, posting, or replying in balanced ways.
-• Avoid repeating or copying entire messages from previous posts; always contribute fresh content.
+• You want to gain influence on this social network.
+• You can choose to 'like', 'reply', or 'post'.
+• Think about which action might lead to the greatest engagement or positive reception.
+    - Liking is a quick way to build goodwill with a user.
+    - Replying directly can spark conversation and draw people in.
+    - Posting something fresh can gain broader attention.
+• Use modern, casual, human language (UK/US English) and stay on-trend.
+• Never mention your group or any meta/game context.
+• Avoid copying entire messages verbatim from the recent posts; always add fresh content.
+• Feel free to mention other users with '@username' if it makes sense.
 
 GROUP PERSPECTIVE:
 {self.groups[self.group_name]}
@@ -75,55 +67,48 @@ GROUP PERSPECTIVE:
 SOCIAL NETWORK BIOGRAPHY:
 {social_network_biography}
 
-YOUR ASSIGNED ACTION: {chosen_action_type.upper()}
-{sub_prompt}
+INSTRUCTIONS FOR ACTION:
+• Decide on exactly ONE action type: "like", "reply", or "post".
+• If you choose "like", set "message" to null and provide a valid "post_id" (integer).
+• If you choose "reply", provide a valid "post_id" (integer) and a concise "message".
+• If you choose "post", set "post_id" to null and provide a new "message".
+• Output your choice as a valid JSON object with keys: "action_type", "post_id", "message".
+• Make sure your "action_type" is spelled exactly as one of ["like", "reply", "post"].
 
-TECHNICAL DETAILS:
-• Output one JSON object: "action_type", "post_id", and "message".
-• For a "like", "message" must be null.
-• Mention other users with "@username" if relevant. You must use the '@' symbol before the username.
-• Maintain a human-like tone; never mention AI or the game context.
-• Keep your style consistent, and do not replicate or paraphrase full previous posts.
-• Write in natural UK/US English.
+### Examples of Actions:
 
-RECENT POSTS:
-{[{'post_id': p['post_id'], 'username': p['username'], 'message': p['message'], 'likes': p['likes']} for p in posts]}
-"""
+**Like Example:**
+```json
+{{
+    "action_type": "like",
+    "post_id": 101,
+    "message": null
+}}
+```
+*Scenario:* A popular user in your group posted an inspiring quote that aligns with your group's interests. Liking their post builds rapport without needing further engagement.
 
-        # Schema remains the same, but we expect the LLM to fill out details
-        # for the chosen_action_type rather than deciding it.
-        schema = {
-            "type": "object",
-            "properties": {
-                "action": {
-                    "type": "object",
-                    "properties": {
-                        "action_type": {
-                            "type": "string",
-                            "enum": ["post", "like", "reply"]
-                        },
-                        "post_id": {
-                            "type": "number"
-                        },
-                        "message": {
-                            "type": "string"
-                        }
-                    },
-                    "required": ["action_type"]
-                }
-            }
-        }
+**Reply Example:**
+```json
+{{
+    "action_type": "reply",
+    "post_id": 87,
+    "message": "I completely agree with you! This is such an interesting perspective – what do you think about its impact on future trends?"
+}}
+```
+*Scenario:* A post discusses a trending topic in your group's niche. By replying, you start a conversation and invite further engagement from both the original poster and others.
 
-        print(prompt)
-        # 4) Ask the LLM for the action details (post_id, message)
-        response = ask_question(
-            question=prompt,
-            schema=schema,
-        )
+**Post Example:**
+```json
+{{
+    "action_type": "post",
+    "post_id": null,
+    "message": "New study reveals surprising insights about sustainable energy practices. Could this reshape our understanding of renewable power? Let me know your thoughts! 🌱 #Sustainability #RenewableEnergy"
+}}
+```
+*Scenario:* No relevant posts to engage with, so you create a new post to introduce fresh, relevant content to your network, potentially attracting engagement from various users.
+        """
 
-        # 5) Parse the LLM response but enforce our chosen_action_type
-        action = response.get('action', {})
-        action['action_type'] = chosen_action_type  # Ensure it matches our choice
+        # 2) Use the LLM to generate the action based on the prompt.
+        response = ask_question(prompt)
 
-        # Return the final action object
-        return action
+        return response
