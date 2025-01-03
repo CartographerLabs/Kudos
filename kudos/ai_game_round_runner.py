@@ -41,6 +41,9 @@ class AIGameRoundRunner:
         scores = self.game_manager.get_scores_for_round(round_number)
         return scores.get(username, 0)
 
+    def _is_valid_post_id(self, post_id: int) -> bool:
+        return self.game_manager.post_manager.get_post_by_id(post_id) is not None
+
     def _apply_action(self, username: str, action: Dict[str, Any], round_number: int) -> None:
         """Dispatch the action to the PostingInterface if valid.
 
@@ -59,19 +62,31 @@ class AIGameRoundRunner:
                 round_number,
                 self.game_manager.get_player_group(username)
             )
-        elif action["action_type"] == "like" and action["post_id"] is not None:
-            self.posting_interface.like_post(
-                int(action["post_id"]),
-                username,
-                self.game_manager.get_player_group(username)
-            )
-        elif action["action_type"] == "reply" and action["post_id"] is not None:
-            self.posting_interface.add_post(
-                action.get("message", ""),
-                username,
-                round_number,
-                self.game_manager.get_player_group(username),
-                reply_to=int(action["post_id"])
-            )
+        elif action["action_type"] == "like":
+            post_id = action.get("post_id")
+            if post_id is not None and self._is_valid_post_id(int(post_id)):
+                self.posting_interface.like_post(
+                    int(post_id),
+                    username,
+                    self.game_manager.get_player_group(username)
+                )
+        elif action["action_type"] == "reply":
+            post_id = action.get("post_id")
+            if post_id is not None and self._is_valid_post_id(int(post_id)):
+                self.posting_interface.add_post(
+                    action.get("message", ""),
+                    username,
+                    round_number,
+                    self.game_manager.get_player_group(username),
+                    reply_to=int(post_id)
+                )
+            else:
+                # If invalid, create a new post instead of a reply
+                self.posting_interface.add_post(
+                    action.get("message", ""),
+                    username,
+                    round_number,
+                    self.game_manager.get_player_group(username)
+                )
         else:
             raise Exception(f"Invalid action from {username}: {action}")
