@@ -63,6 +63,7 @@ BACKGROUND:
 • Never mention your group or any meta/game context.
 • Avoid copying entire messages verbatim from the recent posts; always add fresh content.
 • Feel free to mention other users with '@username' if it makes sense.
+• Post a mix of new content and engagement with existing content. 
 
 INSTRUCTIONS FOR ACTION:
 • Use varying language, typos, swearing, rhetoric, emojis, and slang as appropriate for the network and your group.
