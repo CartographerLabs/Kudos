@@ -121,7 +121,7 @@ RECENT POSTS:
                         "enum": ["post", "like", "reply"]
                     },
                     "post_id": {
-                        "type": "number"
+                        "type": "string"
                     },
                     "message": {
                         "type": "string"
