@@ -68,7 +68,8 @@ SOCIAL NETWORK BIOGRAPHY:
 
 INSTRUCTIONS FOR ACTION:
 • Use varying language, typos, swearing, rhetoric, emojis, and slang as appropriate for the network and your group.
-• Your post must be aligned to your group perspective. 
+• Your post must be aligned to your group perspective.
+• Don't provide placeholder content (i.e. '[product]' or '[link]'), make up links/ products or use real examples.
 • Decide on exactly ONE action type: "like", "reply", or "post".
 • If you choose "like", set "message" to null and provide a valid "post_id" (whole number integer not 'inf' or a float) from the previous posts.
 • If you choose "reply", provide a valid "post_id" (whole number integer not 'inf' or a float) from the previous posts and a concise "message".
