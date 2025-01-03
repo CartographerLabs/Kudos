@@ -4,7 +4,7 @@ import torch
 from kudos.easy_llm import EasyLLM
 import random
 
-models = ["unsloth/mistral-7b-instruct-v0.3-bnb-4bit","unsloth/Llama-3.1-Storm-8B"]
+models = ["unsloth/mistral-7b-instruct-v0.3-bnb-4bit"]
 
 def ask_question(question, schema, max_new_tokens=500, llm_name=None):
 
