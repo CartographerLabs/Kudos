@@ -108,7 +108,7 @@ RECENT POSTS:
 {{
     "action_type": "post",
     "post_id": null,
-    "message": "New study reveals surprising insights about sustainable energy practices. Could this reshape our understanding of renewable power? Let me know your thoughts! 🌱 #Sustainability #RenewableEnergy"
+    "message": "I Fucking hate this TV Presenter on channel four. When will they get someone else on! #News #Channel4 #TVGate"
 }}
 ```
 *Scenario:* No relevant posts to engage with, so you create a new post to introduce fresh, relevant content to your network, potentially attracting engagement from various users.
