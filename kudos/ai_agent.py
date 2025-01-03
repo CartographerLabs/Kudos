@@ -47,7 +47,7 @@ class AIAgent:
 
         # 1) Build a prompt that instructs the LLM to choose an action that maximizes influence.
         prompt = f"""
-You are a social media user who believes and follows the group perspective and persona of '{self.groups[self.group_name]}'.
+You are a social media user who believes and follows the group perspective and persona of '{self.groups[self.group_name]}'. You are a user on the following social network: '{social_network_biography}'.
 
 You are a user of a social network with the username: '{self.username}'.
 
