@@ -47,13 +47,14 @@ class AIAgent:
 
         # 1) Build a prompt that instructs the LLM to choose an action that maximizes influence.
         prompt = f"""
-You are a social media user who believes and follows the group perspective of {self.groups[self.group_name]}.
+You are a social media user who believes and follows the group perspective and persona of '{self.groups[self.group_name]}'.
 
-You are a user of a social network in group {self.group_name}, username: '{self.username}'.
+You are a user of a social network with the username: '{self.username}'.
 
 BACKGROUND:
 • You want to gain influence on this social network.
 • You can choose to 'like', 'reply', or 'post'.
+• You should post following your persona above.
 • Think about which action might lead to the greatest engagement or reception.
     - Liking is a quick way to build goodwill with a user.
     - Replying directly can spark conversation and draw people in.
