@@ -68,7 +68,7 @@ SOCIAL NETWORK BIOGRAPHY:
 {social_network_biography}
 
 INSTRUCTIONS FOR ACTION:
-• Use varying language, typos, emojis, and slang as appropriate for the network and your group.
+• Use varying language, typos, swearing, rhetoric, emojis, and slang as appropriate for the network and your group.
 • Decide on exactly ONE action type: "like", "reply", or "post".
 • If you choose "like", set "message" to null and provide a valid "post_id" (whole number integer not 'inf' or a float) from the previous posts.
 • If you choose "reply", provide a valid "post_id" (whole number integer not 'inf' or a float) from the previous posts and a concise "message".
