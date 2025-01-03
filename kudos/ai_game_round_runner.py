@@ -43,11 +43,14 @@ class AIGameRoundRunner:
 
     def _is_valid_post_id(self, post_id: int) -> bool:
 
-        if post_id == "inf":
+        try:
+            if post_id == "inf":
+                return None
+            
+            post_id = int(post_id)
+            return self.game_manager.post_manager.get_post_by_id(post_id) is not None
+        except:
             return None
-        
-        post_id = int(post_id)
-        return self.game_manager.post_manager.get_post_by_id(post_id) is not None
 
     def _apply_action(self, username: str, action: Dict[str, Any], round_number: int) -> None:
         """Dispatch the action to the PostingInterface if valid.
