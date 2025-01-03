@@ -42,6 +42,11 @@ class AIGameRoundRunner:
         return scores.get(username, 0)
 
     def _is_valid_post_id(self, post_id: int) -> bool:
+
+        if post_id == "inf":
+            return None
+        
+        post_id = int(post_id)
         return self.game_manager.post_manager.get_post_by_id(post_id) is not None
 
     def _apply_action(self, username: str, action: Dict[str, Any], round_number: int) -> None:
@@ -64,7 +69,7 @@ class AIGameRoundRunner:
             )
         elif action["action_type"] == "like":
             post_id = action.get("post_id")
-            if post_id is not None and self._is_valid_post_id(int(post_id)):
+            if post_id is not None and self._is_valid_post_id(post_id):
                 self.posting_interface.like_post(
                     int(post_id),
                     username,
@@ -72,7 +77,7 @@ class AIGameRoundRunner:
                 )
         elif action["action_type"] == "reply":
             post_id = action.get("post_id")
-            if post_id is not None and self._is_valid_post_id(int(post_id)):
+            if post_id is not None and self._is_valid_post_id(post_id):
                 self.posting_interface.add_post(
                     action.get("message", ""),
                     username,
