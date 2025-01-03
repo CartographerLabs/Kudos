@@ -58,23 +58,45 @@ class GameSimulator:
         )
         self.actions_per_user = actions_per_user
 
-    def _initialize_ai_agents(self, num_agents: int, game_rules: str) -> List[AIAgent]:
-        """Create and register AI agents.
+    def _generate_unique_username(self, base_names: List[str], existing_names: List[str]) -> str:
+        """
+        Generate a semi-random, unique username based on a list of base words.
 
         Args:
-            num_agents: Number of agents to create
-            game_rules: General game rules for each agent
+            base_names: List of base words to construct names from.
+            existing_names: List of usernames that already exist.
 
         Returns:
-            List of AIAgent instances
+            A unique username string.
         """
+        def random_suffix(length=3):
+            return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
+
+        # Attempt to generate a unique name
+        for _ in range(100):  # Limit to 100 attempts to avoid infinite loop
+            base = random.choice(base_names)
+            candidate_name = f"{base}_{random_suffix()}"
+            if candidate_name not in existing_names:
+                return candidate_name
+
+        # Fallback if no unique name is found
+        raise ValueError("Could not generate a unique username after 100 attempts.")
+
+    def _initialize_ai_agents(self, num_agents: int, game_rules: str) -> List[AIAgent]:
+        base_names = ["Alpha", "Beta", "Gamma", "Delta", "Echo"]  # Example base names
+        existing_names = [agent.username for agent in self.ai_agents]
+
         agents = []
-        for i in range(num_agents):
-            username = f"User{i+1}"
+        for _ in range(num_agents):
+            username = self._generate_unique_username(base_names, existing_names)
+            existing_names.append(username)  # Ensure the generated name is tracked
+
             group = self.game_manager.get_least_represented_group()
             self.game_manager.add_player(username, group)
             agents.append(AIAgent(username, group, game_rules, self.game_manager.groups))
+
         return agents
+
 
     def run_simulation(
         self,
